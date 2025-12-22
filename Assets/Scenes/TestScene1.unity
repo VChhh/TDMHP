@@ -130,6 +130,8 @@ GameObject:
   - component: {fileID: 1740023075}
   - component: {fileID: 1740023074}
   - component: {fileID: 1740023073}
+  - component: {fileID: 1740023077}
+  - component: {fileID: 1740023076}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -178,6 +180,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1740023076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fefda293e068e043b2fa43405d888f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Input::TDMHP.Input.IntentBufferTester
+  _buffer: {fileID: 1740023077}
+--- !u!114 &1740023077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d9e008f962d7f41a4452f3d3e257da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Input::TDMHP.Input.IntentBuffer
+  _reader: {fileID: 1740023074}
+  _defaultBufferSeconds: 0.2
+  _overrides: []
 --- !u!1 &2072428544
 GameObject:
   m_ObjectHideFlags: 0

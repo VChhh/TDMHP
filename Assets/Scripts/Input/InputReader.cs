@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -24,27 +25,40 @@ namespace TDMHP.Input
         private TDMHPInputActions _actions;
         private CombatInputMode _mode;
 
+        private readonly Dictionary<InputAction, CombatIntent> _actionToIntent = new();
+
         private void Awake()
         {
             _actions = new TDMHPInputActions();
             _mode = _startingMode;
+
+            BuildActionMap();
         }
 
         private void OnEnable()
         {
             EnableMapsForMode(_mode);
-            HookButtonCallbacks();
+
+            foreach (var kv in _actionToIntent)
+            {
+                kv.Key.performed += OnActionPerformed;
+                kv.Key.canceled  += OnActionCanceled;
+            }
         }
 
         private void OnDisable()
         {
-            UnhookButtonCallbacks();
+            foreach (var kv in _actionToIntent)
+            {
+                kv.Key.performed -= OnActionPerformed;
+                kv.Key.canceled  -= OnActionCanceled;
+            }
+
             _actions.Disable();
         }
 
         private void Update()
         {
-            // Read continuous values every frame (more stable than relying only on callbacks).
             Move = _actions.Common.Move.ReadValue<Vector2>();
             Look = _actions.Common.Look.ReadValue<Vector2>();
         }
@@ -53,8 +67,6 @@ namespace TDMHP.Input
         {
             if (_mode == mode) return;
             _mode = mode;
-
-            // Keep Common always enabled; switch combat map.
             EnableMapsForMode(_mode);
         }
 
@@ -78,65 +90,53 @@ namespace TDMHP.Input
             }
         }
 
-        private void HookButtonCallbacks()
+        private void BuildActionMap()
         {
+            _actionToIntent.Clear();
+
             // Common
-            HookButton(_actions.Common.Dodge, CombatIntent.Dodge);
-            HookButton(_actions.Common.Interact, CombatIntent.Interact);
-            HookButton(_actions.Common.Sprint, CombatIntent.Sprint);
-            HookButton(_actions.Common.Pause, CombatIntent.Pause);
+            _actionToIntent[_actions.Common.Dodge]    = CombatIntent.Dodge;
+            _actionToIntent[_actions.Common.Interact] = CombatIntent.Interact;
+            _actionToIntent[_actions.Common.Sprint]   = CombatIntent.Sprint;
+            _actionToIntent[_actions.Common.Pause]    = CombatIntent.Pause;
 
             // Melee
-            HookButton(_actions.Melee.LightAttack, CombatIntent.LightAttack);
-            HookButton(_actions.Melee.HeavyAttack, CombatIntent.HeavyAttack);
+            _actionToIntent[_actions.Melee.LightAttack] = CombatIntent.LightAttack;
+            _actionToIntent[_actions.Melee.HeavyAttack] = CombatIntent.HeavyAttack;
 
             // Ranged
-            HookButton(_actions.Ranged.Aim, CombatIntent.Aim);
-            HookButton(_actions.Ranged.Shoot, CombatIntent.Shoot);
-            HookButton(_actions.Ranged.Reload, CombatIntent.Reload);
+            _actionToIntent[_actions.Ranged.Aim]    = CombatIntent.Aim;
+            _actionToIntent[_actions.Ranged.Shoot]  = CombatIntent.Shoot;
+            _actionToIntent[_actions.Ranged.Reload] = CombatIntent.Reload;
         }
 
-        private void UnhookButtonCallbacks()
+        private void OnActionPerformed(InputAction.CallbackContext ctx)
         {
-            // Common
-            UnhookButton(_actions.Common.Dodge, CombatIntent.Dodge);
-            UnhookButton(_actions.Common.Interact, CombatIntent.Interact);
-            UnhookButton(_actions.Common.Sprint, CombatIntent.Sprint);
-            UnhookButton(_actions.Common.Pause, CombatIntent.Pause);
+            if (!_actionToIntent.TryGetValue(ctx.action, out var intent))
+                return;
 
-            // Melee
-            UnhookButton(_actions.Melee.LightAttack, CombatIntent.LightAttack);
-            UnhookButton(_actions.Melee.HeavyAttack, CombatIntent.HeavyAttack);
-
-            // Ranged
-            UnhookButton(_actions.Ranged.Aim, CombatIntent.Aim);
-            UnhookButton(_actions.Ranged.Shoot, CombatIntent.Shoot);
-            UnhookButton(_actions.Ranged.Reload, CombatIntent.Reload);
+            RaiseIntent(intent, InputPhase.Pressed, ctx);
         }
 
-        private void HookButton(InputAction action, CombatIntent intent)
+        private void OnActionCanceled(InputAction.CallbackContext ctx)
         {
-            action.performed += ctx => RaiseIntent(intent, InputPhase.Pressed, ctx);
-            action.canceled  += ctx => RaiseIntent(intent, InputPhase.Released, ctx);
-        }
+            if (!_actionToIntent.TryGetValue(ctx.action, out var intent))
+                return;
 
-        private void UnhookButton(InputAction action, CombatIntent intent)
-        {
-            action.performed -= ctx => RaiseIntent(intent, InputPhase.Pressed, ctx);
-            action.canceled  -= ctx => RaiseIntent(intent, InputPhase.Released, ctx);
-            // Note: lambdas can’t be unsubscribed this way reliably in general.
-            // We’ll improve this in the next iteration by caching delegates per action.
+            RaiseIntent(intent, InputPhase.Released, ctx);
         }
 
         private void RaiseIntent(CombatIntent intent, InputPhase phase, InputAction.CallbackContext ctx)
         {
-            float value = 1f;
-            if (ctx.control is AxisControl)
-            {
-                value = ctx.ReadValue<float>();
-            }
+            // Use Unity time for buffer comparisons (simple + consistent).
+            double t = Time.unscaledTimeAsDouble;
 
-            OnIntent?.Invoke(new InputIntentEvent(intent, phase, ctx.time, value));
+            float value = 1f;
+            // ReadValue<float>() works for buttons/triggers; for buttons it's usually 0/1.
+            try { value = ctx.ReadValue<float>(); }
+            catch { value = 1f; }
+
+            OnIntent?.Invoke(new InputIntentEvent(intent, phase, t, value));
         }
     }
 }
