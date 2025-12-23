@@ -21,5 +21,5 @@ MonoBehaviour:
   dodgeCancelEnd: 0.9
   moveMultiplier: 0.2
   turnMultiplier: 0.2
-  nextLight: {fileID: 0}
-  nextHeavy: {fileID: 0}
+  hitbox: {fileID: 11400000, guid: 3777679800b1f6b4a86b973b431630fb, type: 2}
+  damage: 10

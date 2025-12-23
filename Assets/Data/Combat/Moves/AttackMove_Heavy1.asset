@@ -16,10 +16,10 @@ MonoBehaviour:
   activeStart: 0.4
   activeEnd: 0.6
   comboLinkStart: 0.2
-  comboLinkEnd: 0.1
+  comboLinkEnd: 0.3
   dodgeCancelStart: 0.75
   dodgeCancelEnd: 1.05
   moveMultiplier: 0.05
   turnMultiplier: 0.1
-  nextLight: {fileID: 0}
-  nextHeavy: {fileID: 0}
+  hitbox: {fileID: 11400000, guid: 3777679800b1f6b4a86b973b431630fb, type: 2}
+  damage: 15

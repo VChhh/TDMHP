@@ -15,11 +15,11 @@ MonoBehaviour:
   weaponId: weapon
   inputMode: 1
   lightEntry: {fileID: 11400000, guid: 181a213291fe5a14988da83583bdfae4, type: 2}
-  heavyEntry: {fileID: 11400000, guid: 62e9d5730363e574584bb972c393cf3f, type: 2}
+  heavyEntry: {fileID: 11400000, guid: 113cd52744d84c943beaff2d87be18a3, type: 2}
   transitions:
   - from: {fileID: 11400000, guid: 181a213291fe5a14988da83583bdfae4, type: 2}
     intent: 0
     to: {fileID: 11400000, guid: 62e9d5730363e574584bb972c393cf3f, type: 2}
-  - from: {fileID: 11400000, guid: 181a213291fe5a14988da83583bdfae4, type: 2}
+  - from: {fileID: 11400000, guid: 62e9d5730363e574584bb972c393cf3f, type: 2}
     intent: 0
-    to: {fileID: 11400000, guid: 62e9d5730363e574584bb972c393cf3f, type: 2}
+    to: {fileID: 11400000, guid: d072d6ded05293542800e947ae1454c1, type: 2}

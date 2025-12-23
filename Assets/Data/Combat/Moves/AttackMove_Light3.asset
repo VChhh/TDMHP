@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: AttackMove_Light3
   m_EditorClassIdentifier: Assembly-CSharp::TDMHP.Combat.AttackMoveData
   totalDuration: 0.9
-  activeStart: 0.25
-  activeEnd: 0.45
-  comboLinkStart: 0.55
-  comboLinkEnd: 0.8
-  dodgeCancelStart: 0.6
-  dodgeCancelEnd: 0.9
-  moveMultiplier: 0.2
-  turnMultiplier: 0.2
-  nextLight: {fileID: 0}
-  nextHeavy: {fileID: 0}
+  activeStart: 0.3
+  activeEnd: 0.5
+  comboLinkStart: 0.45
+  comboLinkEnd: 0.7
+  dodgeCancelStart: 0.5
+  dodgeCancelEnd: 0.8
+  moveMultiplier: 0.21
+  turnMultiplier: 0.21
+  hitbox: {fileID: 11400000, guid: 3777679800b1f6b4a86b973b431630fb, type: 2}
+  damage: 10
