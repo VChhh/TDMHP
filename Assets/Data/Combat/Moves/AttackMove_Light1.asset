@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d98b4195d021384da451c8b4a07c7d4, type: 3}
+  m_Name: AttackMove_Light1
+  m_EditorClassIdentifier: Assembly-CSharp::TDMHP.Combat.AttackMoveData
+  totalDuration: 0.8
+  activeStart: 0.22
+  activeEnd: 0.38
+  comboLinkStart: 0.45
+  comboLinkEnd: 0.7
+  dodgeCancelStart: 0.55
+  dodgeCancelEnd: 0.8
+  moveMultiplier: 0.2
+  turnMultiplier: 0.3
+  nextLight: {fileID: 11400000, guid: 62e9d5730363e574584bb972c393cf3f, type: 2}
+  nextHeavy: {fileID: 0}

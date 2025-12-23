@@ -150,6 +150,24 @@ namespace TDMHP.Input
             return false;
         }
 
+        public bool TryConsumeFirst(CombatIntent[] priorityList, InputPhase phase, out InputIntentEvent e)
+        {
+            if (priorityList == null)
+            {
+                e = default;
+                return false;
+            }
+
+            for (int i = 0; i < priorityList.Length; i++)
+            {
+                if (TryConsume(priorityList[i], phase, out e))
+                    return true;
+            }
+
+            e = default;
+            return false;
+        }
+
         public void ClearAll()
         {
             _entries.Clear();

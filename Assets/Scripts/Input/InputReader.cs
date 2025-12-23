@@ -57,8 +57,47 @@ namespace TDMHP.Input
             _actions.Disable();
         }
 
+        private void OnDestroy()
+        {
+            // Ensure all callbacks are removed and the generated InputActionAsset is disposed.
+            // TDMHPInputActions contains a finalizer that asserts if action maps are still enabled;
+            // calling Dispose() and suppressing finalization prevents that and frees native resources.
+            foreach (var kv in _actionToIntent)
+            {
+                kv.Key.performed -= OnActionPerformed;
+                kv.Key.canceled  -= OnActionCanceled;
+            }
+
+            _actionToIntent.Clear();
+
+            if (_actions != null)
+            {
+                try
+                {
+                    _actions.Disable();
+                    _actions.Dispose();
+                    // Prevent the TDMHPInputActions finalizer from running and asserting.
+                    // FIXME: This is a temporary fix to prevent the finalizer from running and asserting.
+                    System.GC.SuppressFinalize(_actions);
+                }
+                catch (Exception)
+                {
+                    // Swallow exceptions during teardown; Unity may be shutting down.
+                }
+
+                _actions = null;
+            }
+        }
+
         private void Update()
         {
+            if (_actions == null)
+            {
+                Move = Vector2.zero;
+                Look = Vector2.zero;
+                return;
+            }
+
             Move = _actions.Common.Move.ReadValue<Vector2>();
             Look = _actions.Common.Look.ReadValue<Vector2>();
         }
@@ -72,6 +111,13 @@ namespace TDMHP.Input
 
         private void EnableMapsForMode(CombatInputMode mode)
         {
+            if (_actions == null)
+            {
+                // Defensive init: if someone calls SetCombatMode before Awake ran, ensure actions exist.
+                _actions = new TDMHPInputActions();
+                BuildActionMap();
+            }
+
             _actions.Disable();
 
             _actions.Common.Enable();
