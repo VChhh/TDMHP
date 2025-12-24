@@ -20,6 +20,15 @@ namespace TDMHP.Combat
         public override void Enter()
         {
             _t = 0f;
+            if (C.Resources != null)
+            {
+                if (!C.Resources.TrySpend(_move.costs, out var missing, out var amt))
+                {
+                    C.Reject($"Not enough {missing} for {_move.name}");
+                    C.SwitchTo(new IdleAction(C));
+                    return;
+                }
+            }
             _hitRunning = false;
             if (_move != null)
                 Debug.Log($"[Attack] Enter {_move.name}");
@@ -53,7 +62,7 @@ namespace TDMHP.Combat
                     _hitRunning = true;
 
                     if (C.HitDetector != null && _move.hitbox != null)
-                        C.HitDetector.BeginSwing(_move.hitbox, C.gameObject, _move.damage);
+                        C.HitDetector.BeginSwing(_move.hitbox, C.gameObject, _move.damage, _move.staggerDamage, _move.damageType);
                 }
 
                 C.HitDetector?.TickActive();
@@ -117,6 +126,13 @@ namespace TDMHP.Combat
 
             if (next == null)
                 return false;
+
+            // check if enough resources
+            if (C.Resources != null && !C.Resources.CanAfford(next.costs))
+            {
+                C.Reject($"Not enough resources to chain into {next.name}");
+                return false;
+            }
 
             C.SwitchTo(new AttackAction(C, next));
             return true;

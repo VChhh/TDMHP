@@ -30,6 +30,11 @@ namespace TDMHP.Combat
             switch (e.Intent)
             {
                 case CombatIntent.Dodge:
+                    if (C.Resources != null && !C.Resources.CanAfford(C.DodgeCosts))
+                    {
+                        C.Reject("Not enough resources to Dodge");
+                        return;
+                    }
                     C.SwitchTo(new DodgeAction(C));
                     return;
 
@@ -41,6 +46,12 @@ namespace TDMHP.Combat
 
                     var entry = w.GetEntryMove(e.Intent);
                     if (entry == null) return;
+
+                    if (C.Resources != null && !C.Resources.CanAfford(entry.costs))
+                    {
+                        C.Reject($"Not enough resources for {entry.name}");
+                        return;
+                    }
 
                     C.SwitchTo(new AttackAction(C, entry));
                     return;

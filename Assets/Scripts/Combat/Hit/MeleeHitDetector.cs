@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TDMHP.Combat.Damage;
 
 namespace TDMHP.Combat.Hit
 {
@@ -17,7 +18,11 @@ namespace TDMHP.Combat.Hit
 
         private HitboxProfile _profile;
         private GameObject _attacker;
+
         private float _damage;
+        private float _staggerDamage;
+        private DamageType _damageType;
+
         private bool _active;
 
         private void Awake()
@@ -25,13 +30,15 @@ namespace TDMHP.Combat.Hit
             _results = new Collider[Mathf.Max(4, _maxColliders)];
         }
 
-        public void BeginSwing(HitboxProfile profile, GameObject attacker, float damage)
+        public void BeginSwing(HitboxProfile profile, GameObject attacker, float damage, float staggerDamage, DamageType damageType)
         {
             _profile = profile;
             _attacker = attacker;
             _damage = damage;
-            _active = (_profile != null);
+            _staggerDamage = staggerDamage;
+            _damageType = damageType;
 
+            _active = (_profile != null);
             _hitThisSwing.Clear();
         }
 
@@ -77,7 +84,19 @@ namespace TDMHP.Combat.Hit
                 dir.y = 0f;
                 if (dir.sqrMagnitude > 0.0001f) dir.Normalize();
 
-                hb.ReceiveHit(new HitInfo(_attacker, hb.gameObject, _damage, point, dir));
+                var ds = DamageSystem.Instance;
+                if (ds != null)
+                {
+                    ds.TryApplyHit(
+                        attacker: _attacker,
+                        hurtbox: hb,
+                        damageType: _damageType,
+                        baseDamage: _damage,
+                        baseStaggerDamage: _staggerDamage,
+                        point: point,
+                        direction: dir,
+                        out _);
+                }
             }
         }
 

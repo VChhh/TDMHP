@@ -1,29 +1,50 @@
 using UnityEngine;
+using TDMHP.Combat.Damage;
 
 namespace TDMHP.Combat.Hit
 {
-    /// <summary>
-    /// Put this on the enemy root (or a child). The collider that gets hit can be a child;
-    /// we find Hurtbox via GetComponentInParent.
-    /// </summary>
     public sealed class Hurtbox : MonoBehaviour
     {
-        [SerializeField] private Health _health;
+        [Tooltip("Optional. If empty, we auto-find an IDamageable in parents.")]
+        [SerializeField] private MonoBehaviour _damageableBehaviour;
 
-        private void Reset()
+        public IDamageable Damageable { get; private set; }
+        public GameObject DamageableGameObject { get; private set; }
+
+        private void Awake()
         {
-            _health = GetComponentInParent<Health>();
+            ResolveDamageable();
         }
 
-        public void ReceiveHit(in HitInfo hit)
+        private void OnValidate()
         {
-            if (_health != null)
+            // Helps in editor too
+            ResolveDamageable();
+        }
+
+        private void ResolveDamageable()
+        {
+            Damageable = _damageableBehaviour as IDamageable;
+            DamageableGameObject = _damageableBehaviour != null ? _damageableBehaviour.gameObject : null;
+
+            if (Damageable != null) return;
+
+            // Find any MonoBehaviour in parent chain that implements IDamageable
+            Transform t = transform;
+            while (t != null)
             {
-                _health.TakeDamage(hit.damage, hit.attacker);
-            }
-            else
-            {
-                Debug.Log($"[Hurtbox] {name} got hit for {hit.damage} (no Health assigned).");
+                var mbs = t.GetComponents<MonoBehaviour>();
+                for (int i = 0; i < mbs.Length; i++)
+                {
+                    if (mbs[i] is IDamageable d)
+                    {
+                        Damageable = d;
+                        DamageableGameObject = mbs[i].gameObject;
+                        _damageableBehaviour = mbs[i];
+                        return;
+                    }
+                }
+                t = t.parent;
             }
         }
     }

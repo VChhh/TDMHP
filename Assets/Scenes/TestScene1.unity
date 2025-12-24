@@ -119,6 +119,102 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &639338977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 639338979}
+  - component: {fileID: 639338978}
+  m_Layer: 0
+  m_Name: damagetestdriver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &639338978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639338977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a58e0a94cef9fc14e8a1a4e64f1f903a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.DamageTestDriver
+  _attacker: {fileID: 0}
+  _targetDamageable: {fileID: 1740023088}
+  _damage: 10
+  _staggerDamage: 15
+--- !u!4 &639338979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639338977}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.41241, y: 0.16288, z: 4.49791}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &754809925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 754809927}
+  - component: {fileID: 754809926}
+  m_Layer: 0
+  m_Name: GameSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &754809926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754809925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec54a9fb517c7449bfa6e5aabf3b2d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.DamageSystem
+  _friendlyFire: 0
+  _globalDamageMultiplier: 1
+  _critChance: 0.05
+  _critMultiplier: 1.5
+--- !u!4 &754809927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754809925}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.77405, y: 0.16288, z: -0.22238}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1740023072
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +235,14 @@ GameObject:
   - component: {fileID: 1740023079}
   - component: {fileID: 1740023078}
   - component: {fileID: 1740023081}
+  - component: {fileID: 1740023085}
+  - component: {fileID: 1740023086}
+  - component: {fileID: 1740023092}
+  - component: {fileID: 1740023091}
+  - component: {fileID: 1740023090}
+  - component: {fileID: 1740023089}
+  - component: {fileID: 1740023088}
+  - component: {fileID: 1740023087}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -232,7 +336,13 @@ MonoBehaviour:
   _buffer: {fileID: 1740023077}
   _motor: {fileID: 1740023079}
   _hitDetector: {fileID: 1740023081}
+  _resources: {fileID: 1740023086}
   _startingWeapon: {fileID: 11400000, guid: b942523e689f3df45bcb42a27d19b207, type: 2}
+  _dodgeData: {fileID: 11400000, guid: e1d789d6d1ffb22458b97919a70ba501, type: 2}
+  _invulnerability: {fileID: 1740023092}
+  _dodgeCosts:
+  - id: 0
+    amount: 20
 --- !u!114 &1740023079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,6 +476,118 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1740023072}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1740023085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fdf33531fb93cc40a95b7f7f8cdc8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.Team
+  teamId: 1
+--- !u!114 &1740023086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25e0b00fa8279b74a9a069a8b2dc6e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Resources.ResourceContainer
+  _pools:
+  - id: 0
+    max: 100
+    start: 100
+    regenPerSecond: 25
+    regenDelayAfterSpend: 0.5
+--- !u!114 &1740023087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9cf30cbaac0784aaa9c2aeec1d6c04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Hit.Hurtbox
+  _damageableBehaviour: {fileID: 1740023088}
+--- !u!114 &1740023088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55b4481cde9ad249bf24a4c58e18cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.DamageableCharacter
+  _health: {fileID: 1740023091}
+  _stagger: {fileID: 1740023090}
+  _invuln: {fileID: 1740023092}
+  _reaction: {fileID: 1740023089}
+--- !u!114 &1740023089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbca5aa4cf4dfb04fa202e8692341936, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.HitReactionReceiver
+--- !u!114 &1740023090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 608d3b0592cc9874d955c4343f9e1523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.StaggerMeter
+  _maxPoise: 50
+  _regenPerSecond: 10
+--- !u!114 &1740023091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b896aea600db84f9163adf00d9a26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.HealthComponent
+  _maxHealth: 100
+--- !u!114 &1740023092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06791c1acc142164d9d6055f6590a08f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.Invulnerability
+  _debugLog: 1
 --- !u!1 &1807691180
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,8 +713,14 @@ GameObject:
   - component: {fileID: 1910657612}
   - component: {fileID: 1910657611}
   - component: {fileID: 1910657610}
-  - component: {fileID: 1910657609}
+  - component: {fileID: 1910657618}
+  - component: {fileID: 1910657617}
   - component: {fileID: 1910657608}
+  - component: {fileID: 1910657616}
+  - component: {fileID: 1910657615}
+  - component: {fileID: 1910657614}
+  - component: {fileID: 1910657619}
+  - component: {fileID: 1910657620}
   m_Layer: 7
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -512,20 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb9cf30cbaac0784aaa9c2aeec1d6c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Hit.Hurtbox
-  _health: {fileID: 1910657609}
---- !u!114 &1910657609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1910657607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41794f820fa8be74cb2e591d5d35d47b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Hit.Health
-  _maxHealth: 100
+  _damageableBehaviour: {fileID: 1910657614}
 --- !u!136 &1910657610
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -621,6 +836,101 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1910657614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55b4481cde9ad249bf24a4c58e18cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.DamageableCharacter
+  _health: {fileID: 1910657618}
+  _stagger: {fileID: 1910657617}
+  _invuln: {fileID: 1910657620}
+  _reaction: {fileID: 1910657615}
+--- !u!114 &1910657615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbca5aa4cf4dfb04fa202e8692341936, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.HitReactionReceiver
+--- !u!114 &1910657616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fdf33531fb93cc40a95b7f7f8cdc8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.Team
+  teamId: 2
+--- !u!114 &1910657617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 608d3b0592cc9874d955c4343f9e1523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.StaggerMeter
+  _maxPoise: 50
+  _regenPerSecond: 10
+--- !u!114 &1910657618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b896aea600db84f9163adf00d9a26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.HealthComponent
+  _maxHealth: 100
+--- !u!114 &1910657619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6779b7792d49f469be6575790b0fce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::DamageDebugHUD
+  _health: {fileID: 1910657618}
+  _poise: {fileID: 1910657617}
+--- !u!114 &1910657620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06791c1acc142164d9d6055f6590a08f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.Invulnerability
+  _debugLog: 1
 --- !u!1 &1949266214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,3 +1316,5 @@ SceneRoots:
   - {fileID: 1740023075}
   - {fileID: 1910657613}
   - {fileID: 1807691184}
+  - {fileID: 754809927}
+  - {fileID: 639338979}

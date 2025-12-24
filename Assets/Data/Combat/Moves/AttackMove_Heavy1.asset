@@ -22,4 +22,9 @@ MonoBehaviour:
   moveMultiplier: 0.05
   turnMultiplier: 0.1
   hitbox: {fileID: 11400000, guid: 3777679800b1f6b4a86b973b431630fb, type: 2}
+  damageType: 1
   damage: 15
+  staggerDamage: 30
+  costs:
+  - id: 0
+    amount: 30

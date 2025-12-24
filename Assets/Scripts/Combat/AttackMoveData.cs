@@ -1,5 +1,9 @@
 using UnityEngine;
 using TDMHP.Combat.Hit;
+using TDMHP.Combat.Damage;
+using TDMHP.Combat.Resources;
+
+
 
 namespace TDMHP.Combat
 {
@@ -27,8 +31,14 @@ namespace TDMHP.Combat
         [Range(0f, 1f)] public float turnMultiplier = 0.2f;
 
         [Header("Hit")]
-        public HitboxProfile hitbox;
+        public Hit.HitboxProfile hitbox;
+        public DamageType damageType = DamageType.Slash;
+
         [Min(0f)] public float damage = 10f;
+        [Min(0f)] public float staggerDamage = 10f;
+
+        [Header("Resource Costs (paid on move start)")]
+        public ResourceCost[] costs;
 
 
         // [Header("Combo routing")]
