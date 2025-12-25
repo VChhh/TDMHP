@@ -48,9 +48,12 @@ namespace TDMHP.Combat
             C.Motor.TickMove(
                 moveInput: C.Input.Move,
                 speedMultiplier: _move.moveMultiplier,
-                allowRotate: true,
+                allowRotate: false,
                 turnMultiplier: _move.turnMultiplier
             );
+
+            if (C.Aim != null && C.Aim.HasAim)
+                C.Motor.TickFaceTowards(C.Aim.AimWorldPoint, _move.turnMultiplier);
 
             // Hit active window
             bool inActive = _t >= _move.activeStart && _t <= _move.activeEnd && _move.activeEnd > _move.activeStart;

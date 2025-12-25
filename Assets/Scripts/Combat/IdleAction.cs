@@ -20,9 +20,12 @@ namespace TDMHP.Combat
             C.Motor.TickMove(
                 moveInput: C.Input.Move,
                 speedMultiplier: C.Input.SprintHeld ? 1.25f : 1f,
-                allowRotate: true,
+                allowRotate: false,
                 turnMultiplier: 1f
             );
+
+            if (C.Aim != null && C.Aim.HasAim)
+                C.Motor.TickFaceTowards(C.Aim.AimWorldPoint, 1f);
 
             if (!C.Buffer.TryConsumeFirst(PressPriority, InputPhase.Pressed, out var e))
                 return;

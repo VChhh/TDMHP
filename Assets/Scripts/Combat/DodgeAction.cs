@@ -60,9 +60,12 @@ namespace TDMHP.Combat
             C.Motor.TickMove(
                 moveInput: C.Input.Move,
                 speedMultiplier: data.speedMultiplier,
-                allowRotate: true,
+                allowRotate: false,
                 turnMultiplier: 1f
             );
+
+            if (C.Aim != null && C.Aim.HasAim)
+                C.Motor.TickFaceTowards(C.Aim.AimWorldPoint, 1f);
 
             if (_t >= data.duration)
                 C.SwitchTo(new IdleAction(C));

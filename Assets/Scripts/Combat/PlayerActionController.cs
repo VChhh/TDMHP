@@ -5,6 +5,7 @@ using TDMHP.Combat.Weapons;
 using TDMHP.Combat.Hit;
 using TDMHP.Combat.Resources;
 using TDMHP.Combat.Damage;
+using TDMHP.Combat.Aiming;
 
 
 namespace TDMHP.Combat
@@ -17,6 +18,7 @@ namespace TDMHP.Combat
         [SerializeField] private PlayerMotor _motor;
         [SerializeField] private MeleeHitDetector _hitDetector;
         [SerializeField] private ResourceContainer _resources;
+        [SerializeField] private AimProvider _aim;
         
 
         
@@ -43,6 +45,8 @@ namespace TDMHP.Combat
         public PlayerMotor Motor => _motor;
         public MeleeHitDetector HitDetector => _hitDetector;
         public ResourceContainer Resources => _resources;
+        public AimProvider Aim => _aim;
+
 
         public WeaponData Weapon { get; private set; }
 
@@ -60,6 +64,7 @@ namespace TDMHP.Combat
             _hitDetector = GetComponent<MeleeHitDetector>();
             _resources = GetComponent<ResourceContainer>();
             _invulnerability = GetComponent<Invulnerability>();
+            _aim = GetComponent<AimProvider>();
         }
 
         private void Awake()
@@ -70,6 +75,7 @@ namespace TDMHP.Combat
             if (_hitDetector == null) _hitDetector = GetComponent<MeleeHitDetector>();
             if (_resources == null) _resources = GetComponent<ResourceContainer>();
             if (_invulnerability == null) _invulnerability = GetComponent<Invulnerability>();
+            if (_aim == null) _aim = GetComponent<AimProvider>();
         }
 
         private void OnEnable()

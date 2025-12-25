@@ -37,6 +37,20 @@ namespace TDMHP.Combat
             }
         }
 
+        public void TickFaceTowards(Vector3 worldPoint, float turnMultiplier)
+        {
+            Vector3 to = worldPoint - transform.position;
+            to.y = 0f;
+
+            if (to.sqrMagnitude < 0.0001f)
+                return;
+
+            Quaternion target = Quaternion.LookRotation(to.normalized, Vector3.up);
+            float maxDegrees = _turnSpeed * Mathf.Max(0f, turnMultiplier) * Time.deltaTime;
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, target, maxDegrees);
+        }
+
         private Vector3 ToWorld(Vector2 move)
         {
             Vector3 v = new Vector3(move.x, 0f, move.y);
