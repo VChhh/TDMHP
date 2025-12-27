@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using TDMHP.Combat.Hit; // for Hurtbox
+using TDMHP.Combat.HitDetection; // for Hurtbox
 
 namespace TDMHP.Combat.Damage
 {

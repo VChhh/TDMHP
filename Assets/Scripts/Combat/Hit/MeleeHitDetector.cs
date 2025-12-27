@@ -1,112 +1,134 @@
-using System.Collections.Generic;
-using UnityEngine;
-using TDMHP.Combat.Damage;
+// // deprecated: using TDMHP.HitDetection's MeleeHitDetector instead
 
-namespace TDMHP.Combat.Hit
-{
-    /// <summary>
-    /// Performs non-alloc overlap checks during active frames.
-    /// One hit per Hurtbox per swing.
-    /// </summary>
-    public sealed class MeleeHitDetector : MonoBehaviour
-    {
-        [Header("Config")]
-        [SerializeField] private int _maxColliders = 16;
 
-        private Collider[] _results;
-        private readonly HashSet<int> _hitThisSwing = new();
+// using System.Collections.Generic;
+// using UnityEngine;
+// using TDMHP.Combat.Damage;
+// using TDMHP.Combat.Instrumentation;
 
-        private HitboxProfile _profile;
-        private GameObject _attacker;
 
-        private float _damage;
-        private float _staggerDamage;
-        private DamageType _damageType;
+// namespace TDMHP.Combat.Hit
+// {
+//     /// <summary>
+//     /// Performs non-alloc overlap checks during active frames.
+//     /// One hit per Hurtbox per swing.
+//     /// </summary>
+//     public sealed class MeleeHitDetector : MonoBehaviour
+//     {
+//         [Header("Config")]
+//         [SerializeField] private int _maxColliders = 16;
 
-        private bool _active;
+//         private Collider[] _results;
+//         private readonly HashSet<int> _hitThisSwing = new();
 
-        private void Awake()
-        {
-            _results = new Collider[Mathf.Max(4, _maxColliders)];
-        }
+//         private HitboxProfile _profile;
+//         private GameObject _attacker;
 
-        public void BeginSwing(HitboxProfile profile, GameObject attacker, float damage, float staggerDamage, DamageType damageType)
-        {
-            _profile = profile;
-            _attacker = attacker;
-            _damage = damage;
-            _staggerDamage = staggerDamage;
-            _damageType = damageType;
+//         private float _damage;
+//         private float _staggerDamage;
+//         private DamageType _damageType;
 
-            _active = (_profile != null);
-            _hitThisSwing.Clear();
-        }
+//         private bool _active;
 
-        public void EndSwing()
-        {
-            _active = false;
-            _profile = null;
-            _attacker = null;
-            _damage = 0f;
-            _hitThisSwing.Clear();
-        }
+//         private void Awake()
+//         {
+//             _results = new Collider[Mathf.Max(4, _maxColliders)];
+//         }
 
-        public void TickActive()
-        {
-            if (!_active || _profile == null || _attacker == null)
-                return;
+//         public void BeginSwing(HitboxProfile profile, GameObject attacker, float damage, float staggerDamage, DamageType damageType)
+//         {
+//             _profile = profile;
+//             _attacker = attacker;
+//             _damage = damage;
+//             _staggerDamage = staggerDamage;
+//             _damageType = damageType;
 
-            // calculate the world space center of the hitbox
-            // given the localCenter is the attacker's local space
-            // use the attacker's transform, not this component's transform,
-            // so the hitbox stays locked to the character correctly.
-            Vector3 center = _attacker.transform.TransformPoint(_profile.localCenter);
-            var query = _profile.includeTriggers ? QueryTriggerInteraction.Collide : QueryTriggerInteraction.Ignore;
+//             _active = (_profile != null);
+//             _hitThisSwing.Clear();
+//         }
 
-            int count = Physics.OverlapSphereNonAlloc(center, _profile.radius, _results, _profile.hitMask, query);
-            for (int i = 0; i < count; i++)
-            {
-                Collider col = _results[i];
-                if (col == null) continue;
+//         public void EndSwing()
+//         {
+//             _active = false;
+//             _profile = null;
+//             _attacker = null;
+//             _damage = 0f;
+//             _hitThisSwing.Clear();
+//         }
 
-                // Find Hurtbox on this collider or its parents
-                Hurtbox hb = col.GetComponentInParent<Hurtbox>();
-                if (hb == null) continue;
+//         public void TickActive()
+//         {
+//             if (!_active || _profile == null || _attacker == null)
+//                 return;
 
-                int id = hb.GetInstanceID();
-                if (_hitThisSwing.Contains(id))
-                    continue;
+//             // calculate the world space center of the hitbox
+//             // given the localCenter is the attacker's local space
+//             // use the attacker's transform, not this component's transform,
+//             // so the hitbox stays locked to the character correctly.
+//             Vector3 center = _attacker.transform.TransformPoint(_profile.localCenter);
+//             var query = _profile.includeTriggers ? QueryTriggerInteraction.Collide : QueryTriggerInteraction.Ignore;
 
-                _hitThisSwing.Add(id);
+//             int count = Physics.OverlapSphereNonAlloc(center, _profile.radius, _results, _profile.hitMask, query);
+//             for (int i = 0; i < count; i++)
+//             {
+//                 Collider col = _results[i];
+//                 if (col == null) continue;
 
-                Vector3 point = col.ClosestPoint(center);
-                Vector3 dir = (hb.transform.position - transform.position);
-                dir.y = 0f;
-                if (dir.sqrMagnitude > 0.0001f) dir.Normalize();
+//                 // Find Hurtbox on this collider or its parents
+//                 Hurtbox hb = col.GetComponentInParent<Hurtbox>();
+//                 if (hb == null) continue;
 
-                var ds = DamageSystem.Instance;
-                if (ds != null)
-                {
-                    ds.TryApplyHit(
-                        attacker: _attacker,
-                        hurtbox: hb,
-                        damageType: _damageType,
-                        baseDamage: _damage,
-                        baseStaggerDamage: _staggerDamage,
-                        point: point,
-                        direction: dir,
-                        out _);
-                }
-            }
-        }
+//                 int id = hb.GetInstanceID();
+//                 if (_hitThisSwing.Contains(id))
+//                     continue;
 
-        private void OnDrawGizmosSelected()
-        {
-            if (_profile == null || !_profile.drawGizmos || _attacker == null) return;
+//                 _hitThisSwing.Add(id);
 
-            // Match the runtime hit detection position by using the attacker's transform.
-            Vector3 center = _attacker.transform.TransformPoint(_profile.localCenter);
-            Gizmos.DrawWireSphere(center, _profile.radius);
-        }
-    }
-}
+//                 Vector3 point = col.ClosestPoint(center);
+//                 Vector3 dir = (hb.transform.position - transform.position);
+//                 dir.y = 0f;
+//                 if (dir.sqrMagnitude > 0.0001f) dir.Normalize();
+
+//                 var ds = DamageSystem.Instance;
+//                 if (ds != null)
+//                 {
+//                     ds.TryApplyHit(
+//                         attacker: _attacker,
+//                         hurtbox: hb,
+//                         damageType: _damageType,
+//                         baseDamage: _damage,
+//                         baseStaggerDamage: _staggerDamage,
+//                         point: point,
+//                         direction: dir,
+//                         out _);
+//                 }
+//             }
+
+//             // Instrumentation event
+//             CombatInstrumentation.PublishHitQuery(
+//                 new HitQueryDebugEvent(
+//                     emitter: transform,
+//                     shape: HitQueryShapeType.Sphere,
+//                     center: center,
+//                     rotation: Quaternion.identity,
+//                     radius: _profile.radius,
+//                     halfExtents: Vector3.zero,
+//                     capsuleHeight: 0f,
+//                     hits: _results,
+//                     hitCount: count,
+//                     time: Time.unscaledTimeAsDouble,
+//                     attackId: 0 // optional: hash/move index if you have one
+//                 )
+//             );
+//         }
+
+//         private void OnDrawGizmosSelected()
+//         {
+//             if (_profile == null || !_profile.drawGizmos || _attacker == null) return;
+
+//             // Match the runtime hit detection position by using the attacker's transform.
+//             Vector3 center = _attacker.transform.TransformPoint(_profile.localCenter);
+//             Gizmos.DrawWireSphere(center, _profile.radius);
+//         }
+//     }
+// }

@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 250196832}
   - component: {fileID: 250196831}
+  - component: {fileID: 250196833}
   m_Layer: 0
   m_Name: PlayerFollowTarget
   m_TagString: Untagged
@@ -169,20 +170,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &286540007
+--- !u!114 &250196833
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 250196830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
-  m_Name: Camera/PointerPosition
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
-  m_Asset: {fileID: -944628639613478452, guid: c84bfae51f797b340a3d03ba432fd9f0, type: 3}
-  m_ActionId: 7cfbdb9f-27fe-4f67-acfe-3c38bd94de0d
+  m_Script: {fileID: 11500000, guid: 72b16095777ff4640b2f28c8356a4b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Debug::TDMHP.Debugging.Visualizers.CameraTargetDebugVisualizer
+  _player: {fileID: 1740023075}
+  _height: 0.2
+  _color: {r: 0.4, g: 0.7, b: 1, a: 1}
 --- !u!1 &350975672
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,9 +351,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 754809927}
+  - component: {fileID: 754809929}
   - component: {fileID: 754809926}
+  - component: {fileID: 754809928}
   m_Layer: 0
-  m_Name: GameSystem
+  m_Name: GameSystems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,6 +392,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &754809928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754809925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc72a67db053464297ec825586f652b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::EmitterSystem
+  _clock: {fileID: 754809929}
+--- !u!114 &754809929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754809925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8a25315fa93324aa4236328c248064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.UnscaledTime.CombatClock
+  _timeScale: 1
 --- !u!1 &1058560958
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,24 +730,26 @@ GameObject:
   - component: {fileID: 1740023083}
   - component: {fileID: 1740023082}
   - component: {fileID: 1740023080}
+  - component: {fileID: 1740023078}
   - component: {fileID: 1740023074}
   - component: {fileID: 1740023073}
   - component: {fileID: 1740023077}
   - component: {fileID: 1740023076}
   - component: {fileID: 1740023079}
-  - component: {fileID: 1740023078}
-  - component: {fileID: 1740023081}
+  - component: {fileID: 1740023098}
+  - component: {fileID: 1740023100}
   - component: {fileID: 1740023085}
   - component: {fileID: 1740023086}
   - component: {fileID: 1740023092}
+  - component: {fileID: 1740023099}
   - component: {fileID: 1740023091}
   - component: {fileID: 1740023090}
   - component: {fileID: 1740023089}
   - component: {fileID: 1740023088}
-  - component: {fileID: 1740023087}
   - component: {fileID: 1740023094}
-  - component: {fileID: 1740023093}
   - component: {fileID: 1740023095}
+  - component: {fileID: 1740023097}
+  - component: {fileID: 1740023096}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -810,9 +842,11 @@ MonoBehaviour:
   _input: {fileID: 1740023074}
   _buffer: {fileID: 1740023077}
   _motor: {fileID: 1740023079}
-  _hitDetector: {fileID: 1740023081}
   _resources: {fileID: 1740023086}
   _aim: {fileID: 1740023095}
+  _emitterSystem: {fileID: 754809928}
+  _meleeDetector: {fileID: 1740023098}
+  _clock: {fileID: 754809929}
   _startingWeapon: {fileID: 11400000, guid: b942523e689f3df45bcb42a27d19b207, type: 2}
   _dodgeData: {fileID: 11400000, guid: e1d789d6d1ffb22458b97919a70ba501, type: 2}
   _invulnerability: {fileID: 1740023092}
@@ -859,19 +893,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1740023081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740023072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4e8402dc1fceca47ba8ca4e09061703, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Hit.MeleeHitDetector
-  _maxColliders: 16
 --- !u!136 &1740023082
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -983,19 +1004,6 @@ MonoBehaviour:
     start: 100
     regenPerSecond: 25
     regenDelayAfterSpend: 0.5
---- !u!114 &1740023087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740023072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb9cf30cbaac0784aaa9c2aeec1d6c04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Hit.Hurtbox
-  _damageableBehaviour: {fileID: 1740023088}
 --- !u!114 &1740023088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,26 +1072,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.Invulnerability
   _debugLog: 1
---- !u!114 &1740023093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740023072}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a504926ffa82e2c4496394a613e7d63c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Aiming.PointerAimProvider
-  _camera: {fileID: 2134043153}
-  _pointerPosition: {fileID: 286540007}
-  _usePhysicsRaycast: 0
-  _groundMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _groundY: 0
-  _keepLastValid: 1
 --- !u!114 &1740023094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1125,6 +1113,81 @@ MonoBehaviour:
     m_Bits: 4294967295
   _groundY: 0
   _keepLastValid: 1
+--- !u!114 &1740023096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f6e5d5be37d194fb9bbcae1996861a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Debug::TDMHP.Debugging.Visualizers.InvulnerabilityDebugVisualizer
+  _invuln: {fileID: 1740023092}
+  _radius: 0.6
+  _height: 0.05
+  _color: {r: 1, g: 0.8, b: 0.2, a: 1}
+--- !u!114 &1740023097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9ed1291e2da204ea5b18cdd361d726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Debug::TDMHP.Debugging.Visualizers.AimDebugVisualizer
+  _player: {fileID: 1740023078}
+  _crossSize: 0.5
+  _lineHeight: 0.15
+  _color: {r: 0.2, g: 1, b: 0.2, a: 1}
+--- !u!114 &1740023098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e523e7d302ea0e4d9447264d97510ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.HitDetection.MeleeHitDetector
+  _origin: {fileID: 1740023075}
+  _ownerRoot: {fileID: 1740023075}
+  _bufferSize: 32
+--- !u!114 &1740023099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72643f2c476be4c47909e6edb087ecf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.HitDetection.Hurtbox
+  _damageableBehaviour: {fileID: 1740023088}
+--- !u!114 &1740023100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740023072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a03f13243a04287439f93d797296544d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.MeleeHitDamageRouter
+  _detector: {fileID: 1740023098}
+  _emitterSystem: {fileID: 754809928}
+  _damageSystem: {fileID: 754809926}
 --- !u!1 &1807691180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,12 +1315,12 @@ GameObject:
   - component: {fileID: 1910657610}
   - component: {fileID: 1910657618}
   - component: {fileID: 1910657617}
-  - component: {fileID: 1910657608}
   - component: {fileID: 1910657616}
   - component: {fileID: 1910657615}
   - component: {fileID: 1910657614}
   - component: {fileID: 1910657619}
   - component: {fileID: 1910657620}
+  - component: {fileID: 1910657621}
   m_Layer: 7
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -1265,19 +1328,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1910657608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1910657607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb9cf30cbaac0784aaa9c2aeec1d6c04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Hit.Hurtbox
-  _damageableBehaviour: {fileID: 1910657614}
 --- !u!136 &1910657610
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1468,6 +1518,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.Invulnerability
   _debugLog: 1
+--- !u!114 &1910657621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72643f2c476be4c47909e6edb087ecf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.HitDetection.Hurtbox
+  _damageableBehaviour: {fileID: 1910657614}
 --- !u!1 &1949266214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1707,6 +1770,72 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &2073257841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2073257844}
+  - component: {fileID: 2073257843}
+  - component: {fileID: 2073257842}
+  m_Layer: 0
+  m_Name: DebugSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2073257842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073257841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3741e8bb967ba384fbb237f9a7f88ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Debug::TDMHP.Debugging.Visualizers.HitQueryDebugDrawer
+  _drawShape: 1
+  _drawHitPoints: 1
+  _ttlSeconds: 0.05
+  _segments: 24
+  _shapeColor: {r: 1, g: 0.25, b: 0.25, a: 1}
+  _hitColor: {r: 1, g: 1, b: 0.25, a: 1}
+  _hitCrossSize: 0.25
+  _yLift: 0.05
+--- !u!114 &2073257843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073257841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6646f015956f24fb890f5f8a402069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Debug::TDMHP.Debugging.RuntimeDebugDraw
+  _settings: {fileID: 11400000, guid: 6d4775bef22f903448fb597afe6a715a, type: 2}
+--- !u!4 &2073257844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073257841}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.32003, y: 0.16288, z: -0.82407}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2134043151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,3 +2021,4 @@ SceneRoots:
   - {fileID: 250196832}
   - {fileID: 1320519010}
   - {fileID: 1058560961}
+  - {fileID: 2073257844}

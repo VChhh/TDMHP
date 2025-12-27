@@ -21,7 +21,7 @@ MonoBehaviour:
   dodgeCancelEnd: 0.8
   moveMultiplier: 0.2
   turnMultiplier: 0.3
-  hitbox: {fileID: 11400000, guid: 3777679800b1f6b4a86b973b431630fb, type: 2}
+  hitbox: {fileID: 11400000, guid: 3478b222688ccb945a9d9e225c47162e, type: 2}
   damageType: 0
   damage: 10
   staggerDamage: 10

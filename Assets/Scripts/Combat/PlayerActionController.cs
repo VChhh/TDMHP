@@ -6,7 +6,9 @@ using TDMHP.Combat.Hit;
 using TDMHP.Combat.Resources;
 using TDMHP.Combat.Damage;
 using TDMHP.Combat.Aiming;
-
+using TDMHP.Combat.Emitters;
+using TDMHP.Combat.HitDetection;
+using TDMHP.Combat.UnscaledTime;
 
 namespace TDMHP.Combat
 {
@@ -16,11 +18,12 @@ namespace TDMHP.Combat
         [SerializeField] private InputReader _input;
         [SerializeField] private IntentBuffer _buffer;
         [SerializeField] private PlayerMotor _motor;
-        [SerializeField] private MeleeHitDetector _hitDetector;
+        //[SerializeField] private MeleeHitDetector _hitDetector;
         [SerializeField] private ResourceContainer _resources;
         [SerializeField] private AimProvider _aim;
-        
-
+        [SerializeField] private EmitterSystem _emitterSystem;
+        [SerializeField] private MeleeHitDetector _meleeDetector;
+        [SerializeField] private CombatClock _clock;
         
 
         [Header("Weapon")]
@@ -43,9 +46,13 @@ namespace TDMHP.Combat
         public InputReader Input => _input;
         public IntentBuffer Buffer => _buffer;
         public PlayerMotor Motor => _motor;
-        public MeleeHitDetector HitDetector => _hitDetector;
+        //public MeleeHitDetector HitDetector => _hitDetector;
         public ResourceContainer Resources => _resources;
         public AimProvider Aim => _aim;
+        public EmitterSystem EmitterSystem => _emitterSystem;
+        public MeleeHitDetector MeleeDetector => _meleeDetector;
+        public CombatClock Clock => _clock;
+
 
 
         public WeaponData Weapon { get; private set; }
@@ -61,10 +68,15 @@ namespace TDMHP.Combat
             _input = GetComponent<InputReader>();
             _buffer = GetComponent<IntentBuffer>();
             _motor = GetComponent<PlayerMotor>();
-            _hitDetector = GetComponent<MeleeHitDetector>();
+            //_hitDetector = GetComponent<MeleeHitDetector>();
             _resources = GetComponent<ResourceContainer>();
             _invulnerability = GetComponent<Invulnerability>();
             _aim = GetComponent<AimProvider>();
+            _meleeDetector = GetComponent<MeleeHitDetector>();
+
+            // these components are on GameSystems object
+            _emitterSystem = FindFirstObjectByType<EmitterSystem>();
+            _clock = FindFirstObjectByType<CombatClock>();
         }
 
         private void Awake()
@@ -72,10 +84,15 @@ namespace TDMHP.Combat
             if (_input == null) _input = GetComponent<InputReader>();
             if (_buffer == null) _buffer = GetComponent<IntentBuffer>();
             if (_motor == null) _motor = GetComponent<PlayerMotor>();
-            if (_hitDetector == null) _hitDetector = GetComponent<MeleeHitDetector>();
+            //if (_hitDetector == null) _hitDetector = GetComponent<MeleeHitDetector>();
             if (_resources == null) _resources = GetComponent<ResourceContainer>();
             if (_invulnerability == null) _invulnerability = GetComponent<Invulnerability>();
             if (_aim == null) _aim = GetComponent<AimProvider>();
+            if (_meleeDetector == null) _meleeDetector = GetComponent<MeleeHitDetector>();
+
+            // these components are on GameSystems object
+            if (_emitterSystem == null) _emitterSystem = FindFirstObjectByType<EmitterSystem>();
+            if (_clock == null) _clock = FindFirstObjectByType<CombatClock>();
         }
 
         private void OnEnable()
@@ -88,7 +105,9 @@ namespace TDMHP.Combat
 
         private void Update()
         {
-            _current?.Tick(Time.deltaTime);
+            // _current?.Tick(Time.deltaTime); // deprecated, use unscaled time from CombatClock instead
+            float dt = _clock != null ? _clock.DeltaTime : Time.unscaledDeltaTime;
+            _current?.Tick(dt);
         }
 
         public void SwitchTo(PlayerAction next)

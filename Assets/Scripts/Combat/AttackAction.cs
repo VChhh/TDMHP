@@ -2,6 +2,8 @@ using UnityEngine;
 using TDMHP.Input;
 using TDMHP.Combat.Weapons;
 using TDMHP.Combat.Hit;
+using TDMHP.Combat.Emitters;
+using TDMHP.Combat.HitDetection;
 
 
 namespace TDMHP.Combat
@@ -10,7 +12,9 @@ namespace TDMHP.Combat
     {
         private readonly AttackMoveData _move;
         private float _t;
-        private bool _hitRunning;
+        // private bool _hitRunning;
+        private EmissionHandle _emission;
+
 
         public AttackAction(PlayerActionController controller, AttackMoveData move) : base(controller)
         {
@@ -29,9 +33,26 @@ namespace TDMHP.Combat
                     return;
                 }
             }
-            _hitRunning = false;
+
+            // _hitRunning = false;
+
             if (_move != null)
                 Debug.Log($"[Attack] Enter {_move.name}");
+
+            // schedule emitter
+            _emission = default;
+
+            HitboxProfile profile = _move.hitbox; // FIXME: need to change after using newer HitboxProfile
+            if (profile != null && C.EmitterSystem != null && C.MeleeDetector != null)
+            {
+                _emission = C.EmitterSystem.ScheduleMelee(
+                    detector: C.MeleeDetector,
+                    profile: profile,
+                    startOffset: _move.activeStart,
+                    endOffset: _move.activeEnd,
+                    payload: new MeleeEmissionPayload(C.gameObject, _move.damageType, _move.damage, _move.staggerDamage)
+                );
+            }
         }
 
         public override void Tick(float dt)
@@ -56,26 +77,26 @@ namespace TDMHP.Combat
                 C.Motor.TickFaceTowards(C.Aim.AimWorldPoint, _move.turnMultiplier);
 
             // Hit active window
-            bool inActive = _t >= _move.activeStart && _t <= _move.activeEnd && _move.activeEnd > _move.activeStart;
+            // bool inActive = _t >= _move.activeStart && _t <= _move.activeEnd && _move.activeEnd > _move.activeStart;
 
-            if (inActive)
-            {
-                if (!_hitRunning)
-                {
-                    _hitRunning = true;
+            // if (inActive)
+            // {
+            //     if (!_hitRunning)
+            //     {
+            //         _hitRunning = true;
 
-                    if (C.HitDetector != null && _move.hitbox != null)
-                        C.HitDetector.BeginSwing(_move.hitbox, C.gameObject, _move.damage, _move.staggerDamage, _move.damageType);
-                }
+            //         if (C.HitDetector != null && _move.hitbox != null)
+            //             C.HitDetector.BeginSwing(_move.hitbox, C.gameObject, _move.damage, _move.staggerDamage, _move.damageType);
+            //     }
 
-                C.HitDetector?.TickActive();
-            }
-            else if (_hitRunning && _t > _move.activeEnd)
-            {
-                // Leaving active window
-                C.HitDetector?.EndSwing();
-                _hitRunning = false;
-            }
+            //     C.HitDetector?.TickActive();
+            // }
+            // else if (_hitRunning && _t > _move.activeEnd)
+            // {
+            //     // Leaving active window
+            //     C.HitDetector?.EndSwing();
+            //     _hitRunning = false;
+            // }
 
             
             // 1) Dodge cancel window
@@ -105,10 +126,13 @@ namespace TDMHP.Combat
 
         public override void Exit()
         {
-            if (_hitRunning && C.HitDetector != null)
-                C.HitDetector.EndSwing();
+            // if (_hitRunning && C.HitDetector != null)
+            //     C.HitDetector.EndSwing();
 
-            _hitRunning = false;
+            if (C.EmitterSystem != null && _emission.IsValid)
+                C.EmitterSystem.Cancel(_emission);
+
+            // _hitRunning = false;
         }
 
         private bool TryChain(WeaponData weapon, CombatIntent intent)

@@ -31,7 +31,7 @@ namespace TDMHP.Combat
         [Range(0f, 1f)] public float turnMultiplier = 0.2f;
 
         [Header("Hit")]
-        public Hit.HitboxProfile hitbox;
+        public HitDetection.HitboxProfile hitbox;
         public DamageType damageType = DamageType.Slash;
 
         [Min(0f)] public float damage = 10f;
