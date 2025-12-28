@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afaaca6043d4adb4fb5da046f35562fb, type: 3}
+  m_Name: HitFeedback_Default
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Feedback.HitFeedbackProfile
+  _defaultSpec:
+    sparkPrefab: {fileID: 0}
+    sfx: {fileID: 0}
+    hitstopSeconds: 0
+    cameraShakeStrength: 1
+  _rules:
+  - requireCrit: 0
+    requireHeavy: 0
+    requireStagger: 0
+    requireKill: 1
+    spec:
+      sparkPrefab: {fileID: 0}
+      sfx: {fileID: 0}
+      hitstopSeconds: 0
+      cameraShakeStrength: 2

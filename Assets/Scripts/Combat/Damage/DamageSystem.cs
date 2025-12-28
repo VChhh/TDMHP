@@ -56,13 +56,26 @@ namespace TDMHP.Combat.Damage
                 Team tTeam = targetGo != null ? targetGo.GetComponentInParent<Team>() : null;
 
                 if (aTeam != null && tTeam != null && aTeam.teamId != TeamId.Neutral && aTeam.teamId == tTeam.teamId)
+                {
+                    // fire a rejected damage event for friendly fire
+                    var reqFF = new DamageRequest(attacker, targetGo, damageType, 0f, 0f, false, point, direction, Time.unscaledTimeAsDouble);
+                    result = new DamageResult(false, 0f, 0f,
+                        healthAfter: (targetGo.GetComponentInParent<HealthComponent>()?.Current) ?? 0f,
+                        staggerAfter: (targetGo.GetComponentInParent<StaggerMeter>()?.Current) ?? 0f,
+                        killed: false, staggered: false, critical: false,
+                        reaction: HitReactionType.FriendlyFire);
+
+                    OnDamageResolved?.Invoke(reqFF, result);
                     return false;
+                }
+                    
             }
 
             // Invulnerability check (can also be enforced in DamageableCharacter)
             var inv = targetGo != null ? targetGo.GetComponentInParent<Invulnerability>() : null;
             if (inv != null && inv.IsInvulnerable)
             {
+                // fire a rejected damage event for invulnerability
                 var reqInv = new DamageRequest(attacker, targetGo, damageType, 0f, 0f, false, point, direction, Time.unscaledTimeAsDouble);
                 result = new DamageResult(false, 0f, 0f,
                     healthAfter: (targetGo.GetComponentInParent<HealthComponent>()?.Current) ?? 0f,

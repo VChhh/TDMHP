@@ -8,6 +8,10 @@ namespace TDMHP.Combat.Damage
         Knockdown,
         Death,
         Blocked,
-        Invulnerable
+
+
+        // reject types
+        Invulnerable,
+        FriendlyFire
     }
 }
