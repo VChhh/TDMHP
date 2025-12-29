@@ -1,5 +1,6 @@
 ﻿<Solution>
   <Project Path="Game.Combat.csproj" />
+  <Project Path="Game.AI.csproj" />
   <Project Path="Game.Debug.csproj" />
   <Project Path="Game.Input.csproj" />
   <Project Path="Game.Camera.csproj" />

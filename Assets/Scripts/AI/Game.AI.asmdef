@@ -1,0 +1,16 @@
+{
+    "name": "Game.AI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d7f9cc180100e7b4abf09317ef4a9f98"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
