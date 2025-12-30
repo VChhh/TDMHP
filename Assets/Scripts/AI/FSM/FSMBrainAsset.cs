@@ -6,8 +6,8 @@ namespace TDMHP.AI.FSM
     [CreateAssetMenu(menuName = "TDMHP/AI/FSM Brain")]
     public sealed class FSMBrainAsset : EnemyBrainAsset
     {
-        [Header("Aggro")]
-        public float aggroRange = 6f;
+        [Header("Alerted")]
+        public float alertedRange = 6f;
         public float loseRange = 8f;
 
         [Header("Stagger")]

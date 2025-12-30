@@ -13,8 +13,12 @@ namespace TDMHP.AI.FSM.States
         {
             if (ctx.bb.isDead) return FSMEnemyStateId.Dead;
 
-            ctx.bb.target ??= ctx.perception.FindPlayer();
-            if (ctx.bb.target != null && ctx.perception.IsInRange(ctx.tr, ctx.bb.target, _cfg.aggroRange))
+            if(ctx.bb.target == null)
+            {
+                UnityEngine.Debug.Log("Searching for player...");
+                ctx.bb.target = ctx.perception.FindPlayer();
+            }
+            if (ctx.bb.target != null && ctx.perception.IsInRange(ctx.tr, ctx.bb.target, _cfg.alertedRange))
                 return FSMEnemyStateId.Alerted;
             return FSMEnemyStateId.Idle;
         }
