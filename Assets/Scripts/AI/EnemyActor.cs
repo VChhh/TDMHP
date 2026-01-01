@@ -11,7 +11,7 @@ namespace TDMHP.AI
         [SerializeField] private EnemyBlackboard _bb;
         [SerializeField] private EnemyPerceptionSensor _perception;
         [SerializeField] private EnemyMotorStub _motor;
-        [SerializeField] private EnemyCombatDriverStub _combat;
+        [SerializeField] private EnemyCombatDriver _combat;
 
         private void Reset()
         {
@@ -24,8 +24,8 @@ namespace TDMHP.AI
             _motor = GetComponent<EnemyMotorStub>();
             if (_motor == null) _motor = gameObject.AddComponent<EnemyMotorStub>();
 
-            _combat = GetComponent<EnemyCombatDriverStub>();
-            if (_combat == null) _combat = gameObject.AddComponent<EnemyCombatDriverStub>();
+            _combat = GetComponent<EnemyCombatDriver>();
+            if (_combat == null) _combat = gameObject.AddComponent<EnemyCombatDriver>();
         }
 
         public EnemyContext BuildContext()
@@ -33,7 +33,7 @@ namespace TDMHP.AI
             if (_bb == null) _bb = GetComponent<EnemyBlackboard>();
             if (_perception == null) _perception = GetComponent<EnemyPerceptionSensor>();
             if (_motor == null) _motor = GetComponent<EnemyMotorStub>();
-            if (_combat == null) _combat = GetComponent<EnemyCombatDriverStub>();
+            if (_combat == null) _combat = GetComponent<EnemyCombatDriver>();
 
             return new EnemyContext(gameObject, _bb, _perception, _motor, _combat);
         }

@@ -20,6 +20,12 @@ namespace TDMHP.AI.FSM.States
             // stationary dummy: just face the target
             ctx.motor.FaceTowards(ctx.bb.target.position);
 
+            // attack if in range
+            if (ctx.perception.IsInRange(ctx.tr, ctx.bb.target, _cfg.attackRange)) // or use attack.preferredRange via driver
+            {
+                ctx.combat.TryAttackBest(ctx.bb.target);
+            }
+
             // lose aggro if too far
             if (!ctx.perception.IsInRange(ctx.tr, ctx.bb.target, _cfg.loseRange))
                 return FSMEnemyStateId.Idle;

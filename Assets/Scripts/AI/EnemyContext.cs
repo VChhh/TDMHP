@@ -13,14 +13,14 @@ namespace TDMHP.AI
         public EnemyBlackboard bb { get; }
         public EnemyPerceptionSensor perception { get; }
         public EnemyMotorStub motor { get; }
-        public EnemyCombatDriverStub combat { get; }
+        public EnemyCombatDriver combat { get; }
 
         public EnemyContext(
             GameObject go,
             EnemyBlackboard bb,
             EnemyPerceptionSensor perception,
             EnemyMotorStub motor,
-            EnemyCombatDriverStub combat)
+            EnemyCombatDriver combat)
         {
             this.go = go;
             this.tr = go.transform;

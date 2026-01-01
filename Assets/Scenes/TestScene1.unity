@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 754809929}
   - component: {fileID: 754809926}
   - component: {fileID: 754809928}
+  - component: {fileID: 754809930}
   m_Layer: 0
   m_Name: GameSystems
   m_TagString: Untagged
@@ -531,6 +532,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.UnscaledTime.CombatClock
   _timeScale: 1
+--- !u!114 &754809930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754809925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6779b7792d49f469be6575790b0fce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.DamageDebugHUD
+  _playerHealth: {fileID: 1740023091}
+  _playerPoise: {fileID: 0}
+  _enemyHealth: {fileID: 1910657618}
+  _enemyPoise: {fileID: 1910657617}
 --- !u!1 &1058560958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,7 +1501,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.4514, y: 0.16288, z: 0.85274}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4.0848, y: 4.0848, z: 4.0848}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1506,16 +1523,18 @@ GameObject:
   - component: {fileID: 1910657616}
   - component: {fileID: 1910657615}
   - component: {fileID: 1910657614}
-  - component: {fileID: 1910657619}
   - component: {fileID: 1910657620}
   - component: {fileID: 1910657621}
   - component: {fileID: 1910657628}
   - component: {fileID: 1910657627}
   - component: {fileID: 1910657626}
   - component: {fileID: 1910657625}
-  - component: {fileID: 1910657624}
+  - component: {fileID: 1910657630}
   - component: {fileID: 1910657623}
   - component: {fileID: 1910657622}
+  - component: {fileID: 1910657629}
+  - component: {fileID: 1910657632}
+  - component: {fileID: 1910657631}
   m_Layer: 7
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -1687,20 +1706,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.HealthComponent
   _maxHealth: 100
---- !u!114 &1910657619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1910657607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d6779b7792d49f469be6575790b0fce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game.Combat::DamageDebugHUD
-  _health: {fileID: 1910657618}
-  _poise: {fileID: 1910657617}
 --- !u!114 &1910657620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1752,18 +1757,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.AI::TDMHP.AI.EnemyBrainRunner
   _brainAsset: {fileID: 11400000, guid: ace69227d4254eb4c8c1c18ee0b3c43e, type: 2}
---- !u!114 &1910657624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1910657607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c6db09eb455a9046bab49db3b55de8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game.AI::TDMHP.AI.Combat.EnemyCombatDriverStub
 --- !u!114 &1910657625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1820,7 +1813,79 @@ MonoBehaviour:
   _bb: {fileID: 1910657627}
   _perception: {fileID: 1910657626}
   _motor: {fileID: 1910657625}
-  _combat: {fileID: 1910657624}
+  _combat: {fileID: 1910657630}
+--- !u!114 &1910657629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e523e7d302ea0e4d9447264d97510ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.HitDetection.MeleeHitDetector
+  _origin: {fileID: 1910657613}
+  _ownerRoot: {fileID: 1910657613}
+  _bufferSize: 32
+--- !u!114 &1910657630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9cf6339afcdefd499821e6cd631bbd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.AI::TDMHP.AI.Combat.EnemyCombatDriver
+  _emitterSystem: {fileID: 754809928}
+  _clock: {fileID: 754809929}
+  _meleeDetector: {fileID: 1910657629}
+  _faceOrigin: {fileID: 1910657613}
+  _meleeAttacks:
+  - {fileID: 11400000, guid: 376285dfa25ae5b439c9fe73a1777b85, type: 2}
+  _isLocked: 0
+  _lockUntil: 0
+  _cooldownUntil: 0
+--- !u!114 &1910657631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80280d201a64aa24682b43c00b3351e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Debug::TDMHP.Debugging.Visualizers.EnemyAIRangeVisualizer
+  _runner: {fileID: 1910657623}
+  _brainAsset: {fileID: 11400000, guid: ace69227d4254eb4c8c1c18ee0b3c43e, type: 2}
+  _draw: 1
+  _attackColor: {r: 1, g: 0.3, b: 0.3, a: 1}
+  _alertColor: {r: 1, g: 0.9, b: 0.3, a: 1}
+  _loseColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
+  _heightOffset: 0.02
+  _segments: 48
+  _channel: 4
+--- !u!114 &1910657632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a03f13243a04287439f93d797296544d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.MeleeHitDamageRouter
+  _detector: {fileID: 1910657629}
+  _emitterSystem: {fileID: 754809928}
+  _damageSystem: {fileID: 754809926}
 --- !u!1 &1949266214
 GameObject:
   m_ObjectHideFlags: 0

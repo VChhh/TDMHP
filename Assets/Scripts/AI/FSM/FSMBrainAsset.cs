@@ -8,6 +8,7 @@ namespace TDMHP.AI.FSM
     {
         [Header("Alerted")]
         public float alertedRange = 6f;
+        public float attackRange = 2f;
         public float loseRange = 8f;
 
         [Header("Stagger")]

@@ -2,7 +2,8 @@
     "name": "Game.Debug",
     "rootNamespace": "",
     "references": [
-        "Game.Combat"
+        "Game.Combat",
+        "Game.AI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

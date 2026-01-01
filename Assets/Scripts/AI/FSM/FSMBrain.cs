@@ -43,6 +43,9 @@ namespace TDMHP.AI.FSM
 
             if (e.type == TDMHP.AI.EnemyEventType.Died)
             {
+                // cancel current attack
+                _ctx.combat.CancelCurrentAttack();
+
                 _ctx.bb.isDead = true;
                 TransitionTo(FSMEnemyStateId.Dead);
                 return;
@@ -50,6 +53,9 @@ namespace TDMHP.AI.FSM
 
             if (e.type == TDMHP.AI.EnemyEventType.Staggered)
             {
+                // cancel current attack
+                _ctx.combat.CancelCurrentAttack();
+                
                 _ctx.bb.isStaggered = true;
                 _ctx.bb.staggerEndTime = UnityEngine.Time.time + _cfg.staggerLockSeconds;
                 TransitionTo(FSMEnemyStateId.Staggered);
