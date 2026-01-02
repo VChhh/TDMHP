@@ -22,6 +22,7 @@ namespace TDMHP.Debugging.Visualizers
         [SerializeField] private bool _draw = true;
         [SerializeField] private Color _attackColor = new Color(1f, 0.3f, 0.3f, 1f);
         [SerializeField] private Color _alertColor = new Color(1f, 0.9f, 0.3f, 1f);
+        [SerializeField] private Color _chaseColor = new Color(0.3f, 0.9f, 1f, 1f);
         [SerializeField] private Color _loseColor = new Color(0.6f, 0.6f, 0.6f, 1f);
         [SerializeField] private float _heightOffset = 0.02f;
         [SerializeField] private int _segments = 48;
@@ -41,11 +42,13 @@ namespace TDMHP.Debugging.Visualizers
 
             float alerted = ReadFloatFieldSafe(asset, "alertedRange");
             float attack = ReadFloatFieldSafe(asset, "attackRange");
+            float chase = ReadFloatFieldSafe(asset, "chaseRange");
             float lose = ReadFloatFieldSafe(asset, "loseRange");
 
             Vector3 c = transform.position + Vector3.up * _heightOffset;
             if (attack > 0f) DebugDraw.CircleXZ(c, attack, _attackColor, _segments, 0f, _channel, depthTest: false);
             if (alerted > 0f) DebugDraw.CircleXZ(c, alerted, _alertColor, _segments, 0f, _channel, depthTest: false);
+            if (chase > 0f) DebugDraw.CircleXZ(c, chase, _chaseColor, _segments, 0f, _channel, depthTest: false);
             if (lose > 0f) DebugDraw.CircleXZ(c, lose, _loseColor, _segments, 0f, _channel, depthTest: false);
         }
 

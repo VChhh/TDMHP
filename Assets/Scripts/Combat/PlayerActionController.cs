@@ -7,7 +7,7 @@ using TDMHP.Combat.Damage;
 using TDMHP.Combat.Aiming;
 using TDMHP.Combat.Emitters;
 using TDMHP.Combat.HitDetection;
-using TDMHP.Combat.UnscaledTime;
+using TDMHP.UnscaledTime;
 
 namespace TDMHP.Combat
 {

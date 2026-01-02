@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TDMHP.Combat.HitDetection;
-using TDMHP.Combat.UnscaledTime;
+using TDMHP.UnscaledTime;
 
 
 namespace TDMHP.Combat.Emitters

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TDMHP.Combat.UnscaledTime
+namespace TDMHP.UnscaledTime
 {
     /// <summary>
     /// Shared combat time source. Based on unscaled time.

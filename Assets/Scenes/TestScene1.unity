@@ -1459,7 +1459,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 565d65d6ee598f64fbd324a157743425, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1528,7 +1528,8 @@ GameObject:
   - component: {fileID: 1910657628}
   - component: {fileID: 1910657627}
   - component: {fileID: 1910657626}
-  - component: {fileID: 1910657625}
+  - component: {fileID: 1910657634}
+  - component: {fileID: 1910657633}
   - component: {fileID: 1910657630}
   - component: {fileID: 1910657623}
   - component: {fileID: 1910657622}
@@ -1757,18 +1758,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.AI::TDMHP.AI.EnemyBrainRunner
   _brainAsset: {fileID: 11400000, guid: ace69227d4254eb4c8c1c18ee0b3c43e, type: 2}
---- !u!114 &1910657625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1910657607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d60a99f98dec9b4d89a41d2fd7dea06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game.AI::TDMHP.AI.Motor.EnemyMotorStub
 --- !u!114 &1910657626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1812,7 +1801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.AI::TDMHP.AI.EnemyActor
   _bb: {fileID: 1910657627}
   _perception: {fileID: 1910657626}
-  _motor: {fileID: 1910657625}
+  _motor: {fileID: 1910657634}
   _combat: {fileID: 1910657630}
 --- !u!114 &1910657629
 MonoBehaviour:
@@ -1867,6 +1856,7 @@ MonoBehaviour:
   _draw: 1
   _attackColor: {r: 1, g: 0.3, b: 0.3, a: 1}
   _alertColor: {r: 1, g: 0.9, b: 0.3, a: 1}
+  _chaseColor: {r: 0.3, g: 0.9, b: 1, a: 1}
   _loseColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   _heightOffset: 0.02
   _segments: 48
@@ -1886,6 +1876,37 @@ MonoBehaviour:
   _detector: {fileID: 1910657629}
   _emitterSystem: {fileID: 754809928}
   _damageSystem: {fileID: 754809926}
+--- !u!114 &1910657633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b744ad7241944545902b16f2eb74735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.AI::TDMHP.AI.Motor.EnemyMotorKinematic
+  moveSpeed: 3.5
+  accel: 25
+  decel: 30
+  turnSpeedDeg: 720
+  impulseDamping: 8
+  _clock: {fileID: 0}
+--- !u!114 &1910657634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab4b413e139229c47ae25117df9c8003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.AI::TDMHP.AI.Motor.EnemyMotorDriver
+  _implBehaviour: {fileID: 1910657633}
 --- !u!1 &1949266214
 GameObject:
   m_ObjectHideFlags: 0

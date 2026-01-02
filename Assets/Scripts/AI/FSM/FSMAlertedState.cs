@@ -17,13 +17,18 @@ namespace TDMHP.AI.FSM.States
             if (ctx.bb.target == null) ctx.bb.target = ctx.perception.FindPlayer();
             if (ctx.bb.target == null) return FSMEnemyStateId.Idle;
 
-            // stationary dummy: just face the target
+            // face towards target
             ctx.motor.FaceTowards(ctx.bb.target.position);
 
             // attack if in range
-            if (ctx.perception.IsInRange(ctx.tr, ctx.bb.target, _cfg.attackRange)) // or use attack.preferredRange via driver
+            if (ctx.perception.IsInRange(ctx.tr, ctx.bb.target, _cfg.attackRange))
             {
                 ctx.combat.TryAttackBest(ctx.bb.target);
+            }
+            else if(ctx.perception.IsInRange(ctx.tr, ctx.bb.target, _cfg.chaseRange))
+            {
+                // chase if in chase range
+                ctx.motor.MoveTo(ctx.bb.target.position, _cfg.attackRange * 0.9f);
             }
 
             // lose aggro if too far

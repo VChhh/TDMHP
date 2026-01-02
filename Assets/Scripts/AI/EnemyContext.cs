@@ -12,14 +12,14 @@ namespace TDMHP.AI
 
         public EnemyBlackboard bb { get; }
         public EnemyPerceptionSensor perception { get; }
-        public EnemyMotorStub motor { get; }
+        public EnemyMotorDriver motor { get; }
         public EnemyCombatDriver combat { get; }
 
         public EnemyContext(
             GameObject go,
             EnemyBlackboard bb,
             EnemyPerceptionSensor perception,
-            EnemyMotorStub motor,
+            EnemyMotorDriver motor,
             EnemyCombatDriver combat)
         {
             this.go = go;

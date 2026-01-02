@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using TDMHP.Combat.Emitters;
 using TDMHP.Combat.HitDetection;
-using TDMHP.Combat.UnscaledTime; // optional; driver works without it
+using TDMHP.UnscaledTime; // optional; driver works without it
 
 namespace TDMHP.AI.Combat
 {

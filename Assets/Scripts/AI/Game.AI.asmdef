@@ -2,7 +2,8 @@
     "name": "Game.AI",
     "rootNamespace": "",
     "references": [
-        "GUID:d7f9cc180100e7b4abf09317ef4a9f98"
+        "GUID:d7f9cc180100e7b4abf09317ef4a9f98",
+        "GUID:a92c92b1177431c41be496415d1cec78"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
