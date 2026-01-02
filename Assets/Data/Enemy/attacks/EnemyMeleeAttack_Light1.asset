@@ -16,9 +16,9 @@ MonoBehaviour:
   damageType: 0
   baseDamage: 5
   baseStagger: 2
-  windup: 0.2
-  active: 0.1
-  recovery: 0.45
+  windup: 0.5
+  active: 0.15
+  recovery: 0.7
   cooldown: 1
   preferredRange: 2
   faceTargetOnStart: 1

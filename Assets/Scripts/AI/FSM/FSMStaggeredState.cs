@@ -17,10 +17,10 @@ namespace TDMHP.AI.FSM.States
             if (ctx.bb.isDead) return FSMEnemyStateId.Dead;
 
             // simple stagger lock; later replace with “stagger ended” event or animation state
-            if (UnityEngine.Time.time >= ctx.bb.staggerEndTime)
+            if (ctx.combat.CombatNow >= ctx.bb.staggerEndTime)
             {
                 ctx.bb.isStaggered = false;
-                return FSMEnemyStateId.Idle;
+                return FSMEnemyStateId.Alerted;
             }
 
             return FSMEnemyStateId.Staggered;

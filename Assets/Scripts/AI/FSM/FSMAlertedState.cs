@@ -23,7 +23,9 @@ namespace TDMHP.AI.FSM.States
             // attack if in range
             if (ctx.perception.IsInRange(ctx.tr, ctx.bb.target, _cfg.attackRange))
             {
-                ctx.combat.TryAttackBest(ctx.bb.target);
+                ctx.motor.Stop(); // prevents drift / leftover move target
+                if (ctx.combat.CanAttack)
+                    return FSMEnemyStateId.Attacking;
             }
             else if(ctx.perception.IsInRange(ctx.tr, ctx.bb.target, _cfg.chaseRange))
             {

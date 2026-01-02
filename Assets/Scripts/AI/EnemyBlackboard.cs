@@ -12,6 +12,6 @@ namespace TDMHP.AI
         public bool isDead;
 
         [Header("Timers")]
-        public float staggerEndTime;
+        public double staggerEndTime;
     }
 }

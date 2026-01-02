@@ -32,6 +32,7 @@ namespace TDMHP.AI.Combat
         public event Action OnAttackFinished;
 
         private double Now => _clock != null ? _clock.Now : Time.unscaledTimeAsDouble;
+        public double CombatNow => Now; // public accessor for unscaled time
 
         private void Reset()
         {

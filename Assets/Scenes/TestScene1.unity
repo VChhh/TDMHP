@@ -545,7 +545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Combat::TDMHP.Combat.Damage.DamageDebugHUD
   _playerHealth: {fileID: 1740023091}
-  _playerPoise: {fileID: 0}
+  _playerPoise: {fileID: 1740023090}
   _enemyHealth: {fileID: 1910657618}
   _enemyPoise: {fileID: 1910657617}
 --- !u!1 &1058560958
@@ -1532,6 +1532,7 @@ GameObject:
   - component: {fileID: 1910657633}
   - component: {fileID: 1910657630}
   - component: {fileID: 1910657623}
+  - component: {fileID: 1910657635}
   - component: {fileID: 1910657622}
   - component: {fileID: 1910657629}
   - component: {fileID: 1910657632}
@@ -1907,6 +1908,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.AI::TDMHP.AI.Motor.EnemyMotorDriver
   _implBehaviour: {fileID: 1910657633}
+--- !u!114 &1910657635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910657607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acad3d96780039b4c9b62b18bc03efc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Debug::TDMHP.Debugging.Visualizers.EnemyAttackPhaseDebugVisualizer
+  _combat: {fileID: 1910657630}
+  _drawWindup: 1
+  _drawRecovery: 1
+  _drawActiveRing: 0
+  _ttlSeconds: 0.05
+  _yLift: 0.05
+  _segments: 24
+  _useAttackPreferredRange: 1
+  _fallbackRadius: 1.8
+  _windupColor: {r: 1, g: 0.65, b: 0.2, a: 1}
+  _activeColor: {r: 1, g: 0.25, b: 0.25, a: 1}
+  _recoveryColor: {r: 0.35, g: 0.7, b: 1, a: 1}
+  _drawProgressSpoke: 1
+  _spokeScale: 1
 --- !u!1 &1949266214
 GameObject:
   m_ObjectHideFlags: 0

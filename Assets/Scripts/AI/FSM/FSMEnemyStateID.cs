@@ -4,6 +4,7 @@ namespace TDMHP.AI.FSM
     {
         Idle,
         Alerted,
+        Attacking,
         Staggered,
         Dead
     }

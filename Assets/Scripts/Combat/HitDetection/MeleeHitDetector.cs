@@ -73,6 +73,7 @@ namespace TDMHP.Combat.HitDetection
             );
 
             // TODO: apply damage through a separate layer/system
+            // done below by a router
 
             // Publish instrumentation (debug-only hook; no-op in release)
             PublishInstrumentation(profile, attackId, res);

@@ -17,6 +17,7 @@ namespace TDMHP.AI.FSM
             // register built-in states
             _states[FSMEnemyStateId.Idle] = new States.FSMIdleState(cfg);
             _states[FSMEnemyStateId.Alerted] = new States.FSMAlertedState(cfg);
+            _states[FSMEnemyStateId.Attacking] = new States.FSMAttackingState(cfg);
             _states[FSMEnemyStateId.Staggered] = new States.FSMStaggeredState(cfg);
             _states[FSMEnemyStateId.Dead] = new States.FSMDeadState();
         }
@@ -57,7 +58,7 @@ namespace TDMHP.AI.FSM
                 _ctx.combat.CancelCurrentAttack();
                 
                 _ctx.bb.isStaggered = true;
-                _ctx.bb.staggerEndTime = UnityEngine.Time.time + _cfg.staggerLockSeconds;
+                _ctx.bb.staggerEndTime = _ctx.combat.CombatNow + _cfg.staggerLockSeconds;
                 TransitionTo(FSMEnemyStateId.Staggered);
                 return;
             }
