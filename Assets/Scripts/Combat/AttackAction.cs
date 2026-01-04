@@ -10,6 +10,7 @@ namespace TDMHP.Combat
     public sealed class AttackAction : PlayerAction
     {
         private readonly AttackMoveData _move;
+        public AttackMoveData MoveData => _move; // public accessor for animation bridge
         private float _t;
         // private bool _hitRunning;
         private EmissionHandle _emission;

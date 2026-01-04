@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055f3f21ad2dee2429ddae2c90dc836f, type: 3}
   m_Name: EnemyMeleeAttack_Light1
   m_EditorClassIdentifier: Game.AI::TDMHP.AI.Combat.EnemyMeleeAttackData
-  hitboxProfile: {fileID: 11400000, guid: 3478b222688ccb945a9d9e225c47162e, type: 2}
+  hitboxProfile: {fileID: 11400000, guid: efcd1179c0f06ea4ebc9fd32b93a9400, type: 2}
   damageType: 0
   baseDamage: 5
   baseStagger: 2

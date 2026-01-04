@@ -41,6 +41,7 @@ namespace TDMHP.Combat
         
 
         private PlayerAction _current;
+        public event Action<PlayerAction, PlayerAction> OnActionChanged; // broadcast old, new
 
         public InputReader Input => _input;
         public IntentBuffer Buffer => _buffer;
@@ -111,9 +112,14 @@ namespace TDMHP.Combat
 
         public void SwitchTo(PlayerAction next)
         {
+            var prev = _current;
             _current?.Exit();
             _current = next;
             _current?.Enter();
+
+            // Note: if Enter() internally SwitchTo(...) (e.g. reject -> Idle),
+            // this will naturally end up publishing the final action that "stuck".
+            OnActionChanged?.Invoke(prev, _current);
         }
 
         public void SetWeapon(WeaponData weapon)

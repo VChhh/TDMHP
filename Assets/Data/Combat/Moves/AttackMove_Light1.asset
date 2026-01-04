@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d98b4195d021384da451c8b4a07c7d4, type: 3}
   m_Name: AttackMove_Light1
   m_EditorClassIdentifier: Assembly-CSharp::TDMHP.Combat.AttackMoveData
-  totalDuration: 0.8
-  activeStart: 0.22
-  activeEnd: 0.38
+  totalDuration: 1
+  activeStart: 0.3
+  activeEnd: 0.5
   comboLinkStart: 0.45
   comboLinkEnd: 0.7
   dodgeCancelStart: 0.55
