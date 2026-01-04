@@ -33,7 +33,7 @@ namespace TDMHP.Animation
             if (_animator == null || _library == null) return false;
             if (!_library.TryGet(key, out var e) || e == null) return false;
 
-            Debug.Log($"CharacterAnimator: Playing animation '{e.stateName}' for key '{key}'");
+            // Debug.Log($"CharacterAnimator: Playing animation '{e.stateName}' for key '{key}'");
 
             _animator.speed = Mathf.Max(0.01f, e.speed);
             int hash = Animator.StringToHash(e.stateName);

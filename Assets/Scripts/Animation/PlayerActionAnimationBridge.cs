@@ -38,7 +38,7 @@ namespace TDMHP.Animation
             if (next is AttackAction atk && atk.MoveData != null)
             {
                 // key should match an entry in AnimationLibrary
-                Debug.Log($"PlayerActionAnimationBridge: Playing attack animation '{atk.MoveData.name}'");
+                // Debug.Log($"PlayerActionAnimationBridge: Playing attack animation '{atk.MoveData.name}'");
                 _anim.PlayKey(atk.MoveData.name);
                 return;
             }
