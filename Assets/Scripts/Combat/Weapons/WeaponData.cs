@@ -1,9 +1,50 @@
+using System;
 using System.Collections.Generic;
+using TDMHP.Combat;
 using TDMHP.Input;
 using UnityEngine;
 
 namespace TDMHP.Combat.Weapons
 {
+    [Serializable]
+    public struct MoveNodeLayout
+    {
+        public AttackMoveData move;
+        public Vector2 position;
+    }
+
+    [Serializable]
+    public struct ConnectionNodeLayout
+    {
+        public string id;
+        public Vector2 position;
+    }
+
+    public enum GraphEndpointType
+    {
+        EntryLight,
+        EntryHeavy,
+        Move,
+        Joint
+    }
+
+    [Serializable]
+    public struct GraphEndpoint
+    {
+        public GraphEndpointType type;
+        public AttackMoveData move;
+        public string jointId;
+    }
+
+    [Serializable]
+    public struct GraphEdgeData
+    {
+        public GraphEndpoint from;
+        public GraphEndpoint to;
+        public bool hasIntent;
+        public CombatIntent intent;
+    }
+
     [CreateAssetMenu(menuName = "TDMHP/Combat/Weapon", fileName = "Weapon_")]
     public sealed class WeaponData : ScriptableObject
     {
@@ -17,6 +58,11 @@ namespace TDMHP.Combat.Weapons
 
         [Header("Combo Graph (from move -> input -> move)")]
         public List<ComboTransition> transitions = new();
+
+        [Header("Editor Layout (serialized for the graph editor)")]
+        [SerializeField] public List<MoveNodeLayout> nodeLayout = new();
+        [SerializeField] public List<ConnectionNodeLayout> connectionLayout = new();
+        [SerializeField] public List<GraphEdgeData> graphEdges = new();
 
         public AttackMoveData GetEntryMove(CombatIntent intent)
         {

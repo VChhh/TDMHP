@@ -16,7 +16,7 @@ MonoBehaviour:
   activeStart: 0.3
   activeEnd: 0.5
   comboLinkStart: 0.45
-  comboLinkEnd: 0.7
+  comboLinkEnd: 0.9
   dodgeCancelStart: 0.55
   dodgeCancelEnd: 0.8
   moveMultiplier: 0.2

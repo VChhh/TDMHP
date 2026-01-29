@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d98b4195d021384da451c8b4a07c7d4, type: 3}
-  m_Name: AttackMove_Heavy1
+  m_Name: AttackMove_Light4
   m_EditorClassIdentifier: Assembly-CSharp::TDMHP.Combat.AttackMoveData
   totalDuration: 1.1
   activeStart: 0.4
   activeEnd: 0.6
-  comboLinkStart: 0.2
-  comboLinkEnd: 0.8
-  dodgeCancelStart: 0.75
-  dodgeCancelEnd: 1.05
-  moveMultiplier: 0.05
+  comboLinkStart: 0.3
+  comboLinkEnd: 0.9
+  dodgeCancelStart: 0.5
+  dodgeCancelEnd: 0.8
+  moveMultiplier: 0.1
   turnMultiplier: 0.1
-  hitbox: {fileID: 11400000, guid: 94c8090c745ebe44caba6a84ca445d18, type: 2}
-  damageType: 1
+  hitbox: {fileID: 11400000, guid: 3478b222688ccb945a9d9e225c47162e, type: 2}
+  damageType: 0
   damage: 15
-  staggerDamage: 30
+  staggerDamage: 20
   costs:
   - id: 0
-    amount: 30
+    amount: 15

@@ -32,3 +32,8 @@ MonoBehaviour:
     layer: 0
     crossFade: 0.9
     speed: 1
+  - key: AttackMove_Heavy1
+    stateName: Base Layer.PlayerAttack2
+    layer: 0
+    crossFade: 0.9
+    speed: 1
